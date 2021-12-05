@@ -1,0 +1,14 @@
+:local namaINT "nama interface yang akan dipantau";
+:local bot "masukkan bot token";
+:local chat "masukkan chat channel id"
+
+:local rx [/interface get value-name="rx-byte" [find name="$namaINT"]];
+:local rxMB ($rx / 1024 / 1024 / 1024);
+:local tx [/interface get value-name="tx-byte" [find name="$namaINT"]];
+:local txMB ($tx / 1024 / 1024 / 1024);
+:local rxData ((([/interface monitor-traffic $namaINT once as-value]->"rx-bits-per-second")/1000)/1);
+:local txData ((([/interface monitor-traffic $namaINT once as-value]->"tx-bits-per-second")/1000)/1);
+:local text ("Kecepatan Internet interface :$namaINT%0ARX: $rxData kb/s%0ATX: $txData kb/s");
+
+delay 2
+:tool fetch url="https://api.telegram.org/bot$bot/sendMessage?chat_id=$chat&text= $text %0APenggunaan Internet saat ini %0ATx:$txMB GB %0ARX:$rxMB GB" keep-result=no
