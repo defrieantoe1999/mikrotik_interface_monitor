@@ -4,6 +4,7 @@ monitoring speed and usage for single interface on mikrotik real-time with teleg
 # How To Use
 Make a new scheduler on system-scedule
 Paste script on on-event
+And
 Edit bot token with your bot token
 Edit chat id with your chat id channel telegram
 
